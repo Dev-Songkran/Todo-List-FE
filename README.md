@@ -21,6 +21,7 @@ pnpm dev
 ```
 
 and config env:
+<small style="color:red">copy file .env.example และเปลี่ยนชื่อเป็น .env.local</small>
 
 ```bash
 NEXT_PUBLIC_API={API ENDPOINT}
