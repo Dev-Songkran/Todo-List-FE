@@ -40,6 +40,14 @@ const Donut: FC<IDonut> = (props) => {
   const centerY = innerHeight / 2;
   const centerX = innerWidth / 2;
 
+  const total = useMemo(() => {
+    return reduce(
+      data,
+      (amount, item) => Number(amount) + Number(item.value),
+      0
+    );
+  }, [data]);
+
   if (data.length <= 0) return <></>;
 
   const getPercent = (price: number) => {
@@ -52,14 +60,6 @@ const Donut: FC<IDonut> = (props) => {
         100
     );
   };
-
-  const total = useMemo(() => {
-    return reduce(
-      data,
-      (amount, item) => Number(amount) + Number(item.value),
-      0
-    );
-  }, [data]);
 
   return (
     <Stack direction="row" justifyContent="space-between" position="relative">
