@@ -1,4 +1,4 @@
-import React, { FC, useMemo } from "react";
+import React, { FC, useCallback, useMemo } from "react";
 import Pie from "@visx/shape/lib/shapes/Pie";
 import { Group } from "@visx/group";
 import { Text } from "@visx/text";
@@ -48,18 +48,21 @@ const Donut: FC<IDonut> = (props) => {
     );
   }, [data]);
 
-  if (data.length <= 0) return <></>;
+  const getPercent = useCallback(
+    (price: number) => {
+      return Math.round(
+        (price /
+          data.reduce(
+            (amount, item: DataProps) => Number(amount) + Number(item.value),
+            0
+          )) *
+          100
+      );
+    },
+    [data]
+  );
 
-  const getPercent = (price: number) => {
-    return Math.round(
-      (price /
-        data.reduce(
-          (amount, item: DataProps) => Number(amount) + Number(item.value),
-          0
-        )) *
-        100
-    );
-  };
+  if (data.length <= 0) return <></>;
 
   return (
     <Stack direction="row" justifyContent="space-between" position="relative">
